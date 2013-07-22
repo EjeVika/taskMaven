@@ -1,25 +1,24 @@
 package taskMaven;
 
+
+import org.apache.log4j.Logger;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: user
- * Date: 20.07.13
- * Time: 11:36
- * To change this template use File | Settings | File Templates.
+
  */
 public class GuestBook implements GuestBookController {
-//    private static final Logger log = Logger.getLogger(GuestBook.class);
+    private static final Logger log = Logger.getLogger(GuestBook.class);
 
-    private Connection connection;
-    private String tableName;
-    private String firstColumnName;
-    private String secColumnName;
-    private String thirdColumnName;
+    private final Connection connection;
+    private final String tableName;
+    private final String firstColumnName;
+    private final String secColumnName;
+    private final String thirdColumnName;
 
     public GuestBook(Connection connection, String tableName,
                      String firstColumnName,String secColumnName,String thirdColumnName){
@@ -38,10 +37,9 @@ public class GuestBook implements GuestBookController {
 
         Date currentDate = new Date();
         Timestamp sqlTime =  new Timestamp(currentDate.getTime());
-        System.out.println(currentDate.getTime());
-        System.out.println(sqlTime);
-//        SimpleDateFormat sDF =(SimpleDateFormat) SimpleDateFormat.getInstance();
-//        sDF.applyPattern("");
+        log.debug(currentDate.getTime());
+        log.debug(sqlTime);
+
 
         String insertStr = "INSERT INTO "+tableName+
                 "("+secColumnName+", "+thirdColumnName+")"+
@@ -52,7 +50,8 @@ public class GuestBook implements GuestBookController {
 
         addPrepStat.setTimestamp(1, sqlTime);
         addPrepStat.setString(2,message);
-        addPrepStat.execute();
+        addPrepStat.executeUpdate();
+        //addPrepStat.close();
     }
 
     @Override
@@ -61,19 +60,21 @@ public class GuestBook implements GuestBookController {
         String selectQuery ="SELECT * FROM "+tableName;
         Statement stat = connection.createStatement();
         ResultSet rs = stat.executeQuery(selectQuery);
-//        log.debug(rs);
+        log.debug(rs);
         while (rs.next()) {
             Record r = new Record();
-//            log.debug(rs.getRow());
+            log.debug(rs.getRow());
             r.setID(rs.getLong(firstColumnName));
-//            log.debug(rs.getLong(firstColumnName));
+            log.debug(rs.getLong(firstColumnName));
             r.setPostDate(new Date(rs.getTimestamp(secColumnName).getTime()));
-//            log.debug(new Date(rs.getDate(secColumnName).getTime()));
+            log.debug(new Date(rs.getDate(secColumnName).getTime()));
             r.setPostMessage(rs.getString(thirdColumnName));
-//            log.debug(rs.getString(thirdColumnName));
-//            log.debug(r.getID()+" "+r.getPostDate()+" "+r.getPostMessage());
+            log.debug(rs.getString(thirdColumnName));
+            log.debug(r.getID()+" "+r.getPostDate()+" "+r.getPostMessage());
             recordList.add(r);
         }
+        //stat.close();
         return recordList;
     }
+
 }

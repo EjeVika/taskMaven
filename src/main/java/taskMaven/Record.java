@@ -3,13 +3,9 @@ package taskMaven;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: user
- * Date: 20.07.13
- * Time: 11:31
- * To change this template use File | Settings | File Templates.
+
  */
-public class Record {
+class Record {
     private long ID;
     private Date postDate;
     private String postMessage;
