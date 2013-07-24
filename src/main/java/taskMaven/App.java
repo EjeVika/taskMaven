@@ -2,8 +2,6 @@ package taskMaven;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.sql.*;
 import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
@@ -46,10 +44,9 @@ public class App
                 String userInput = sc.nextLine();
                 if (!userInput.equals("quit")){
                     String[] mas = userInput.split(" ");
-/* strange way to use enum in switch
-                    Commands cmd = Commands.valueOf("ADD");
+// strange way to use enum in switch
                     try{
-                        cmd = Commands.valueOf(mas[0].toUpperCase());
+                        Commands cmd = Commands.valueOf(mas[0].toUpperCase());
                         switch (cmd){
                             case ADD:
                                 StringBuilder message = new StringBuilder();
@@ -61,7 +58,7 @@ public class App
                             case LIST:
                                 List<Record> records = myGuestBook.getRecords();
                                 for (Record r:records){
-                                    System.out.println("id = " + r.getID() + ", Date = " + r.getPostDate());
+                                    System.out.println("id = " + r.getId() + ", Date = " + r.getPostDate());
                                     System.out.println(r.getPostMessage());
                                 }
                                 break;
@@ -72,9 +69,9 @@ public class App
                         System.err.println("Unknown command.");
                         //e.printStackTrace();
                     }
-*/
 
-                    switch (mas[0].toUpperCase()){
+
+/*                    switch (mas[0].toUpperCase()){
                         case "ADD":
                             StringBuilder message = new StringBuilder();
                             for (int i=1;i<mas.length;i++){
@@ -85,7 +82,7 @@ public class App
                         case "LIST":
                             List<Record> records = myGuestBook.getRecords();
                             for (Record r:records){
-                                System.out.println("Record #" + r.getID() + ". Time: " + formatDate(r.getPostDate()));
+                                System.out.println("Record #" + r.getId() + ". Time: " + formatDate(r.getPostDate()));
                                 System.out.println(" - "+r.getPostMessage());
                             }
                             break;
@@ -93,6 +90,7 @@ public class App
                             System.err.println("Unknown command.");
 
                     }
+*/
                 }else{
                     System.out.println("exit");
                 //    System.exit(0);

@@ -62,15 +62,17 @@ public class GuestBook implements GuestBookController {
         ResultSet rs = stat.executeQuery(selectQuery);
         log.debug(rs);
         while (rs.next()) {
-            Record r = new Record();
+            Record r = new Record(rs.getLong(firstColumnName),
+                                    new Date(rs.getTimestamp(secColumnName).getTime()),
+                                    rs.getString(thirdColumnName));
             log.debug(rs.getRow());
-            r.setID(rs.getLong(firstColumnName));
+        //    r.setId(rs.getLong(firstColumnName));
             log.debug(rs.getLong(firstColumnName));
-            r.setPostDate(new Date(rs.getTimestamp(secColumnName).getTime()));
+        //    r.setPostDate(new Date(rs.getTimestamp(secColumnName).getTime()));
             log.debug(new Date(rs.getDate(secColumnName).getTime()));
-            r.setPostMessage(rs.getString(thirdColumnName));
+        //    r.setPostMessage(rs.getString(thirdColumnName));
             log.debug(rs.getString(thirdColumnName));
-            log.debug(r.getID()+" "+r.getPostDate()+" "+r.getPostMessage());
+            log.debug(r.getId()+" "+r.getPostDate()+" "+r.getPostMessage());
             recordList.add(r);
         }
         //stat.close();

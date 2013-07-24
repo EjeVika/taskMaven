@@ -6,16 +6,21 @@ import java.util.Date;
 
  */
 class Record {
-    private long ID;
+    private long id;
     private Date postDate;
     private String postMessage;
 
-    public long getID() {
-        return ID;
+    public Record(long id,Date postDate, String postMessage){
+        this.id = id;
+        this.postDate = postDate;
+        this.postMessage = postMessage;
+    }
+    public long getId() {
+        return id;
     }
 
-    public void setID(long ID) {
-        this.ID = ID;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Date getPostDate() {
